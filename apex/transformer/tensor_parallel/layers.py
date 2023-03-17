@@ -391,10 +391,10 @@ class LinearWithGradAccumulationAndAsyncCommunication(torch.autograd.Function):
             return grad_input, None, None, None, None, None, None
 
         # Convert the tensor shapes to 2D for execution compatibility
-        grad_output = grad_output.view(
+        grad_output = grad_output.reshape(
             grad_output.shape[0] * grad_output.shape[1], grad_output.shape[2]
         )
-        total_input = total_input.view(total_input.shape[0] * total_input.shape[1], total_input.shape[2])
+        total_input = total_input.reshape(total_input.shape[0] * total_input.shape[1], total_input.shape[2])
 
         if ctx.sequence_parallel_enabled:
             assert not ctx.async_grad_allreduce
